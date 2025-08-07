@@ -2,7 +2,11 @@ name: HMT Stock Checker Every 2 Minutes
 
 on:
   schedule:
-    - cron: "*/2 * * * *"  # Runs every 2 minutes (UTC)
+    # Every 5 mins between 2:30 AM and 2:29 PM UTC (which is 8:00 AM – 8:00 PM IST)
+    - cron: "*/5 2-14 * * *"
+
+    # Every 10 mins from 2:30 PM to 2:29 AM UTC (which is 8:00 PM – 8:00 AM IST)
+    - cron: "*/10 0-1,15-23 * * *"
   workflow_dispatch:  # Manual run button
 
 jobs:
