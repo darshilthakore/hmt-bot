@@ -1,0 +1,30 @@
+name: HMT Stock Checker Every 2 Minutes
+
+on:
+  schedule:
+    - cron: "*/2 * * * *"  # Runs every 2 minutes (UTC)
+  workflow_dispatch:  # Manual run button
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    env:
+      TOKEN: ${{ secrets.TOKEN }}
+      CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run the Discord stock checker
+        run: python hmt-bot.py 
